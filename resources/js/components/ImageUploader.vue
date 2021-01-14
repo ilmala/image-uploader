@@ -34,10 +34,17 @@
         <div v-if="state==='STATE_LOADING'" class="w-96 bg-white rounded-2xl shadow-xl p-8">
             <h2 class="font-semibold text-xl text-gray-800">
                 Uploading
+                <span>{{ uploadPercentage }}%</span>
             </h2>
 
             <div class="mt-4 w-full h-2 bg-gray-200 rounded-full">
                 <div class="bg-blue-500 rounded-full h-full" :style="'width: '+uploadPercentage+'%'"></div>
+            </div>
+
+            <div class="mt-4" v-if="showError">
+                <p class="font-semibold text-sm text-red-600">
+                    An error has occurred. Please try again later.
+                </p>
             </div>
         </div>
 
@@ -73,7 +80,7 @@
 
 <script>
 import UploadImage from "./UploadImage";
-import {STATE_START, STATE_LOADING, STATE_END} from "../upload-state";
+import {STATE_START, STATE_LOADING, STATE_END, STATE_ERROR} from "../upload-state";
 
 export default {
     name: "ImageUploader",
@@ -82,7 +89,8 @@ export default {
             file: null,
             uploadPercentage: 0,
             url: null,
-            state: STATE_START
+            state: STATE_START,
+            showError: false,
         }
     },
     methods: {
@@ -100,6 +108,7 @@ export default {
             this.state = STATE_LOADING;
             let formData = new FormData();
             formData.append('image', this.file);
+
             axios.post('/api/images', formData, {
                 onUploadProgress: (progressEvent) => {
                     let uploadPercentage = parseInt(Math.round((progressEvent.loaded / progressEvent.total) * 100));
@@ -111,7 +120,7 @@ export default {
                 this.state = STATE_END;
             })
                 .catch((error) => {
-                    console.log(error);
+                    this.showError = true;
                 });
             ;
 

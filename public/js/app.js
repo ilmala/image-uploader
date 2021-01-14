@@ -1920,6 +1920,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1929,7 +1936,8 @@ __webpack_require__.r(__webpack_exports__);
       file: null,
       uploadPercentage: 0,
       url: null,
-      state: _upload_state__WEBPACK_IMPORTED_MODULE_1__.STATE_START
+      state: _upload_state__WEBPACK_IMPORTED_MODULE_1__.STATE_START,
+      showError: false
     };
   },
   methods: {
@@ -1959,7 +1967,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.url = response.data.image_url;
         _this.state = _upload_state__WEBPACK_IMPORTED_MODULE_1__.STATE_END;
       })["catch"](function (error) {
-        console.log(error);
+        _this.showError = true;
       });
       ;
     }
@@ -19692,7 +19700,8 @@ var render = function() {
     _vm.state === "STATE_LOADING"
       ? _c("div", { staticClass: "w-96 bg-white rounded-2xl shadow-xl p-8" }, [
           _c("h2", { staticClass: "font-semibold text-xl text-gray-800" }, [
-            _vm._v("\n            Uploading\n        ")
+            _vm._v("\n            Uploading\n            "),
+            _c("span", [_vm._v(_vm._s(_vm.uploadPercentage) + "%")])
           ]),
           _vm._v(" "),
           _c(
@@ -19704,7 +19713,17 @@ var render = function() {
                 style: "width: " + _vm.uploadPercentage + "%"
               })
             ]
-          )
+          ),
+          _vm._v(" "),
+          _vm.showError
+            ? _c("div", { staticClass: "mt-4" }, [
+                _c("p", { staticClass: "font-semibold text-sm text-red-600" }, [
+                  _vm._v(
+                    "\n                An error has occurred. Please try again later.\n            "
+                  )
+                ])
+              ])
+            : _vm._e()
         ])
       : _vm._e(),
     _vm._v(" "),
