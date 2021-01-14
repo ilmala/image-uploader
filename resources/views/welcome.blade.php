@@ -10,7 +10,9 @@
     </head>
     <body class="antialiased">
         <div id="app" class="">
-            <h1 class="text-4xl">Image Uploader</h1>
+            <image-uploader></image-uploader>
         </div>
+
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>
