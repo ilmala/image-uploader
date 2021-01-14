@@ -1882,6 +1882,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ImageUploader",
@@ -19539,7 +19547,7 @@ var render = function() {
           "w-96 bg-white rounded-lg shadow flex flex-col items-center p-8"
       },
       [
-        _c("h1", { staticClass: "text-2xl text-gray-800" }, [
+        _c("h1", { staticClass: "text-xl text-gray-800" }, [
           _vm._v("\n            Upload Your Image\n        ")
         ]),
         _vm._v(" "),
@@ -19598,11 +19606,22 @@ var render = function() {
             _vm._v(" "),
             _c("span", [_vm._v("Choose a file")])
           ]
-        ),
-        _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(_vm.uploadPercentage))])
+        )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "w-96 bg-white rounded-lg shadow p-8" }, [
+      _c("h2", { staticClass: "text-xl text-gray-800" }, [
+        _vm._v("\n            Uploading\n        ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "mt-4 w-full h-2 bg-gray-200 rounded-full" }, [
+        _c("div", {
+          staticClass: "bg-blue-500 rounded-full h-full",
+          style: "width: " + _vm.uploadPercentage + "%"
+        })
+      ])
+    ])
   ])
 }
 var staticRenderFns = []

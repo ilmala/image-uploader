@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="w-96 bg-white rounded-lg shadow flex flex-col items-center p-8">
-            <h1 class="text-2xl text-gray-800">
+            <h1 class="text-xl text-gray-800">
                 Upload Your Image
             </h1>
 
@@ -28,8 +28,16 @@
                 <input class="hidden" type="file" @change.prevent="onSelectFile">
                 <span>Choose a file</span>
             </label>
+        </div>
 
-            <p>{{ uploadPercentage }}</p>
+        <div class="w-96 bg-white rounded-lg shadow p-8">
+            <h2 class="text-xl text-gray-800">
+                Uploading
+            </h2>
+
+            <div class="mt-4 w-full h-2 bg-gray-200 rounded-full">
+                <div class="bg-blue-500 rounded-full h-full" :style="'width: '+uploadPercentage+'%'"></div>
+            </div>
         </div>
     </div>
 </template>
