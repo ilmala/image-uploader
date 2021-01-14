@@ -9,8 +9,8 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body class="antialiased">
-        <div id="app" class="">
-            <image-uploader></image-uploader>
+        <div id="app" class="bg-gray-200 min-h-screen flex justify-center items-center">
+            <image-uploader />
         </div>
 
         <script src="{{ asset('js/app.js') }}"></script>
