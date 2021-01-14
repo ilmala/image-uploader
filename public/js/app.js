@@ -1919,6 +1919,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -19614,10 +19615,10 @@ var render = function() {
           "div",
           {
             staticClass:
-              "w-96 bg-white rounded-xl shadow-md flex flex-col items-center p-8"
+              "w-96 bg-white rounded-2xl shadow-xl flex flex-col items-center p-8"
           },
           [
-            _c("h1", { staticClass: "text-xl text-gray-800" }, [
+            _c("h1", { staticClass: "font-semibold text-xl text-gray-800" }, [
               _vm._v("\n            Upload Your Image\n        ")
             ]),
             _vm._v(" "),
@@ -19629,7 +19630,7 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "mt-6 w-full flex flex-col items-center bg-gray-100 p-8 border border-dashed border-blue-300 rounded-xl",
+                  "mt-6 w-full flex flex-col items-center bg-gray-100 p-8 border border-dashed border-blue-300 rounded-2xl",
                 on: {
                   drop: function($event) {
                     $event.preventDefault()
@@ -19656,34 +19657,41 @@ var render = function() {
               _vm._v("or")
             ]),
             _vm._v(" "),
-            _c(
-              "label",
-              {
-                staticClass:
-                  "mt-6 inline-block whitespace-nowrap bg-blue-500 hover:bg-blue-400 px-4 py-2 text-xs text-white leading-5 rounded-xl"
-              },
-              [
-                _c("input", {
-                  staticClass: "hidden",
-                  attrs: { type: "file" },
+            _c("label", { attrs: { role: "button" } }, [
+              _c("input", {
+                ref: "file",
+                staticClass: "hidden",
+                attrs: { type: "file" },
+                on: {
+                  change: function($event) {
+                    $event.preventDefault()
+                    return _vm.onSelectFile($event)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "mt-6 inline-block whitespace-nowrap bg-blue-500 hover:bg-blue-400 px-4 py-2 text-xs text-white leading-5 rounded-xl",
                   on: {
-                    change: function($event) {
+                    click: function($event) {
                       $event.preventDefault()
-                      return _vm.onSelectFile($event)
+                      return _vm.$refs.file.click()
                     }
                   }
-                }),
-                _vm._v(" "),
-                _c("span", [_vm._v("Choose a file")])
-              ]
-            )
+                },
+                [_vm._v("\n                Choose a file\n            ")]
+              )
+            ])
           ]
         )
       : _vm._e(),
     _vm._v(" "),
     _vm.state === "STATE_LOADING"
-      ? _c("div", { staticClass: "w-96 bg-white rounded-xl shadow-md p-8" }, [
-          _c("h2", { staticClass: "text-xl text-gray-800" }, [
+      ? _c("div", { staticClass: "w-96 bg-white rounded-2xl shadow-xl p-8" }, [
+          _c("h2", { staticClass: "font-semibold text-xl text-gray-800" }, [
             _vm._v("\n            Uploading\n        ")
           ]),
           _vm._v(" "),
@@ -19705,7 +19713,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "w-96 bg-white rounded-xl shadow-md flex flex-col items-center p-8"
+              "w-96 bg-white rounded-2xl shadow-xl flex flex-col items-center p-8"
           },
           [
             _c(
@@ -19740,12 +19748,14 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c("h1", { staticClass: "mt-4 text-xl text-gray-800" }, [
-              _vm._v("\n            Upload Successfully!\n        ")
-            ]),
+            _c(
+              "h1",
+              { staticClass: "mt-1 font-semibold text-xl text-gray-800" },
+              [_vm._v("\n            Upload Successfully!\n        ")]
+            ),
             _vm._v(" "),
             _c("img", {
-              staticClass: "mt-6 w-full bg-gray-100 rounded-xl object-cover",
+              staticClass: "mt-6 w-full bg-gray-100 rounded-2xl object-cover",
               attrs: { src: _vm.url, alt: "uploaded image" }
             }),
             _vm._v(" "),
@@ -19753,7 +19763,7 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "mt-6 w-full flex items-center space-x-1 bg-gray-100 border border-gray-200 rounded-xl p-1"
+                  "mt-6 w-full flex items-center space-x-1 bg-gray-100 border border-gray-200 rounded-2xl p-1"
               },
               [
                 _c(

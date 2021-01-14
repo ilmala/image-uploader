@@ -1,7 +1,7 @@
 <template>
     <div class="py-12">
-        <div v-if="state==='STATE_START'" class="w-96 bg-white rounded-xl shadow-md flex flex-col items-center p-8">
-            <h1 class="text-xl text-gray-800">
+        <div v-if="state==='STATE_START'" class="w-96 bg-white rounded-2xl shadow-xl flex flex-col items-center p-8">
+            <h1 class="font-semibold text-xl text-gray-800">
                 Upload Your Image
             </h1>
 
@@ -10,7 +10,7 @@
             </p>
 
             <div
-                class="mt-6 w-full flex flex-col items-center bg-gray-100 p-8 border border-dashed border-blue-300 rounded-xl"
+                class="mt-6 w-full flex flex-col items-center bg-gray-100 p-8 border border-dashed border-blue-300 rounded-2xl"
                 @drop.prevent="onDropFile"
                 @dragover.prevent
             >
@@ -23,15 +23,16 @@
 
             <div class="mt-4 text-sm text-gray-500">or</div>
 
-            <label
-                class="mt-6 inline-block whitespace-nowrap bg-blue-500 hover:bg-blue-400 px-4 py-2 text-xs text-white leading-5 rounded-xl">
-                <input class="hidden" type="file" @change.prevent="onSelectFile">
-                <span>Choose a file</span>
+            <label role="button">
+                <input class="hidden" ref="file" type="file" @change.prevent="onSelectFile">
+                <button @click.prevent="$refs.file.click()" class="mt-6 inline-block whitespace-nowrap bg-blue-500 hover:bg-blue-400 px-4 py-2 text-xs text-white leading-5 rounded-xl">
+                    Choose a file
+                </button>
             </label>
         </div>
 
-        <div v-if="state==='STATE_LOADING'" class="w-96 bg-white rounded-xl shadow-md p-8">
-            <h2 class="text-xl text-gray-800">
+        <div v-if="state==='STATE_LOADING'" class="w-96 bg-white rounded-2xl shadow-xl p-8">
+            <h2 class="font-semibold text-xl text-gray-800">
                 Uploading
             </h2>
 
@@ -40,7 +41,7 @@
             </div>
         </div>
 
-        <div v-if="state==='STATE_END'" class="w-96 bg-white rounded-xl shadow-md flex flex-col items-center p-8">
+        <div v-if="state==='STATE_END'" class="w-96 bg-white rounded-2xl shadow-xl flex flex-col items-center p-8">
 
             <div class="w-8 h-8 flex justify-center items-center rounded-full bg-green-600 text-white">
                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -49,13 +50,13 @@
                 </svg>
             </div>
 
-            <h1 class="mt-4 text-xl text-gray-800">
+            <h1 class="mt-1 font-semibold text-xl text-gray-800">
                 Upload Successfully!
             </h1>
 
-            <img class="mt-6 w-full bg-gray-100 rounded-xl object-cover" :src="url" alt="uploaded image">
+            <img class="mt-6 w-full bg-gray-100 rounded-2xl object-cover" :src="url" alt="uploaded image">
 
-            <div class="mt-6 w-full flex items-center space-x-1 bg-gray-100 border border-gray-200 rounded-xl p-1">
+            <div class="mt-6 w-full flex items-center space-x-1 bg-gray-100 border border-gray-200 rounded-2xl p-1">
                 <div class="text-xs text-gray-800 truncate pl-2">
                     {{ url }}
                 </div>
