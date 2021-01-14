@@ -1846,6 +1846,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _UploadImage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UploadImage */ "./resources/js/components/UploadImage.vue");
+/* harmony import */ var _upload_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../upload-state */ "./resources/js/upload-state.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1891,12 +1920,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ImageUploader",
   data: function data() {
     return {
       file: null,
-      uploadPercentage: 0
+      uploadPercentage: 0,
+      url: null,
+      state: _upload_state__WEBPACK_IMPORTED_MODULE_1__.STATE_START
     };
   },
   methods: {
@@ -1913,6 +1945,7 @@ __webpack_require__.r(__webpack_exports__);
     upload: function upload() {
       var _this = this;
 
+      this.state = _upload_state__WEBPACK_IMPORTED_MODULE_1__.STATE_LOADING;
       var formData = new FormData();
       formData.append('image', this.file);
       axios.post('/api/images', formData, {
@@ -1922,7 +1955,8 @@ __webpack_require__.r(__webpack_exports__);
           _this.uploadPercentage = uploadPercentage;
         }
       }).then(function (response) {
-        console.log(response);
+        _this.url = response.data.image_url;
+        _this.state = _upload_state__WEBPACK_IMPORTED_MODULE_1__.STATE_END;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -1965,13 +1999,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-
-
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var v_clipboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-clipboard */ "./node_modules/v-clipboard/dist/index.min.js");
+/* harmony import */ var v_clipboard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(v_clipboard__WEBPACK_IMPORTED_MODULE_0__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-vue__WEBPACK_IMPORTED_MODULE_0__.default.component('image-uploader', __webpack_require__(/*! ./components/ImageUploader.vue */ "./resources/js/components/ImageUploader.vue").default);
-var app = new vue__WEBPACK_IMPORTED_MODULE_0__.default({
+
+
+vue__WEBPACK_IMPORTED_MODULE_1__.default.use((v_clipboard__WEBPACK_IMPORTED_MODULE_0___default()));
+vue__WEBPACK_IMPORTED_MODULE_1__.default.component('image-uploader', __webpack_require__(/*! ./components/ImageUploader.vue */ "./resources/js/components/ImageUploader.vue").default);
+var app = new vue__WEBPACK_IMPORTED_MODULE_1__.default({
   el: '#app'
 });
 
@@ -2005,6 +2042,27 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/upload-state.js":
+/*!**************************************!*\
+  !*** ./resources/js/upload-state.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "STATE_START": () => /* binding */ STATE_START,
+/* harmony export */   "STATE_LOADING": () => /* binding */ STATE_LOADING,
+/* harmony export */   "STATE_END": () => /* binding */ STATE_END,
+/* harmony export */   "STATE_ERROR": () => /* binding */ STATE_ERROR
+/* harmony export */ });
+var STATE_START = 'STATE_START';
+var STATE_LOADING = 'STATE_LOADING';
+var STATE_END = 'STATE_END';
+var STATE_ERROR = 'STATE_ERROR';
 
 /***/ }),
 
@@ -19379,6 +19437,17 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/v-clipboard/dist/index.min.js":
+/*!****************************************************!*\
+  !*** ./node_modules/v-clipboard/dist/index.min.js ***!
+  \****************************************************/
+/***/ (function(module) {
+
+!function(e,t){ true?module.exports=t():0}(this,function(){return function(e){function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}var r={};return t.m=e,t.c=r,t.i=function(e){return e},t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{configurable:!1,enumerable:!0,get:n})},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,"a",r),r},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="/dist/",t(t.s=0)}([function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=function(e){var t=void 0;if("string"!=typeof e)try{t=JSON.stringify(e)}catch(e){throw"Failed to copy value to clipboard. Unknown type."}else t=e;var r=document.createElement("textarea");if(r.value=t,r.setAttribute("readonly",""),r.style.cssText="position:fixed;pointer-events:none;z-index:-9999;opacity:0;",document.body.appendChild(r),navigator.userAgent.match(/ipad|ipod|iphone/i)){r.contentEditable=!0,r.readOnly=!0;var n=document.createRange();n.selectNodeContents(r);var o=window.getSelection();o.removeAllRanges(),o.addRange(n),r.setSelectionRange(0,999999)}else r.select();var a=!1;try{a=document.execCommand("copy")}catch(e){console.warn(e)}return document.body.removeChild(r),a};t.default={install:function(e){e.prototype.$clipboard=n;var t=function(e){return function(){return"$"+e++}}(1),r={},o=function(e){e&&(r[e]=null,delete r[e])},a=function(e){var n=t();return r[n]=e,n};e.directive("clipboard",{bind:function(e,t){var o=t.arg,i=t.value;switch(o){case"error":var c=a(i);return void(e.dataset.clipboardErrorHandler=c);case"success":var d=a(i);return void(e.dataset.clipboardSuccessHandler=d);default:var l=function(o){if(t.hasOwnProperty("value")){var a={value:"function"==typeof i?i():i,event:o},c=n(a.value)?e.dataset.clipboardSuccessHandler:e.dataset.clipboardErrorHandler,d=r[c];d&&d(a)}},u=a(l);return e.dataset.clipboardClickHandler=u,void e.addEventListener("click",r[u])}},unbind:function(e){var t=e.dataset,n=t.clipboardSuccessHandler,a=t.clipboardErrorHandler,i=t.clipboardClickHandler;o(n),o(a),i&&(e.removeEventListener("click",r[i]),o(i))}})}}}])});
+//# sourceMappingURL=index.min.js.map
+
+/***/ }),
+
 /***/ "./resources/js/components/ImageUploader.vue":
 /*!***************************************************!*\
   !*** ./resources/js/components/ImageUploader.vue ***!
@@ -19539,89 +19608,187 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      {
-        staticClass:
-          "w-96 bg-white rounded-lg shadow flex flex-col items-center p-8"
-      },
-      [
-        _c("h1", { staticClass: "text-xl text-gray-800" }, [
-          _vm._v("\n            Upload Your Image\n        ")
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "mt-4 text-xs text-gray-500" }, [
-          _vm._v("\n            File should be: Jpeg, Png ...\n        ")
-        ]),
-        _vm._v(" "),
-        _c(
+  return _c("div", { staticClass: "py-12" }, [
+    _vm.state === "STATE_START"
+      ? _c(
           "div",
           {
             staticClass:
-              "mt-6 w-full flex flex-col items-center bg-gray-100 p-8 border border-dashed border-blue-300 rounded-lg",
-            on: {
-              drop: function($event) {
-                $event.preventDefault()
-                return _vm.onDropFile($event)
-              },
-              dragover: function($event) {
-                $event.preventDefault()
-              }
-            }
+              "w-96 bg-white rounded-xl shadow-md flex flex-col items-center p-8"
           },
           [
-            _c("UploadImage", { staticClass: "w-28 h-28" }),
+            _c("h1", { staticClass: "text-xl text-gray-800" }, [
+              _vm._v("\n            Upload Your Image\n        ")
+            ]),
             _vm._v(" "),
-            _c("p", { staticClass: "mt-8 text-sm text-gray-400" }, [
-              _vm._v(
-                "\n                Drag & Drop your image here\n            "
-              )
-            ])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "mt-4 text-sm text-gray-500" }, [
-          _vm._v("or")
-        ]),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass:
-              "mt-6 inline-block bg-blue-500 hover:bg-blue-400 px-4 py-2 text-xs text-white leading-5 rounded-lg"
-          },
-          [
-            _c("input", {
-              staticClass: "hidden",
-              attrs: { type: "file" },
-              on: {
-                change: function($event) {
-                  $event.preventDefault()
-                  return _vm.onSelectFile($event)
+            _c("p", { staticClass: "mt-4 text-xs text-gray-500" }, [
+              _vm._v("\n            File should be: Jpeg, Png ...\n        ")
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "mt-6 w-full flex flex-col items-center bg-gray-100 p-8 border border-dashed border-blue-300 rounded-xl",
+                on: {
+                  drop: function($event) {
+                    $event.preventDefault()
+                    return _vm.onDropFile($event)
+                  },
+                  dragover: function($event) {
+                    $event.preventDefault()
+                  }
                 }
-              }
-            }),
+              },
+              [
+                _c("UploadImage", { staticClass: "w-28 h-28" }),
+                _vm._v(" "),
+                _c("p", { staticClass: "mt-8 text-sm text-gray-400" }, [
+                  _vm._v(
+                    "\n                Drag & Drop your image here\n            "
+                  )
+                ])
+              ],
+              1
+            ),
             _vm._v(" "),
-            _c("span", [_vm._v("Choose a file")])
+            _c("div", { staticClass: "mt-4 text-sm text-gray-500" }, [
+              _vm._v("or")
+            ]),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass:
+                  "mt-6 inline-block whitespace-nowrap bg-blue-500 hover:bg-blue-400 px-4 py-2 text-xs text-white leading-5 rounded-xl"
+              },
+              [
+                _c("input", {
+                  staticClass: "hidden",
+                  attrs: { type: "file" },
+                  on: {
+                    change: function($event) {
+                      $event.preventDefault()
+                      return _vm.onSelectFile($event)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", [_vm._v("Choose a file")])
+              ]
+            )
           ]
         )
-      ]
-    ),
+      : _vm._e(),
     _vm._v(" "),
-    _c("div", { staticClass: "w-96 bg-white rounded-lg shadow p-8" }, [
-      _c("h2", { staticClass: "text-xl text-gray-800" }, [
-        _vm._v("\n            Uploading\n        ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "mt-4 w-full h-2 bg-gray-200 rounded-full" }, [
-        _c("div", {
-          staticClass: "bg-blue-500 rounded-full h-full",
-          style: "width: " + _vm.uploadPercentage + "%"
-        })
-      ])
-    ])
+    _vm.state === "STATE_LOADING"
+      ? _c("div", { staticClass: "w-96 bg-white rounded-xl shadow-md p-8" }, [
+          _c("h2", { staticClass: "text-xl text-gray-800" }, [
+            _vm._v("\n            Uploading\n        ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "mt-4 w-full h-2 bg-gray-200 rounded-full" },
+            [
+              _c("div", {
+                staticClass: "bg-blue-500 rounded-full h-full",
+                style: "width: " + _vm.uploadPercentage + "%"
+              })
+            ]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.state === "STATE_END"
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "w-96 bg-white rounded-xl shadow-md flex flex-col items-center p-8"
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "w-8 h-8 flex justify-center items-center rounded-full bg-green-600 text-white"
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "w-6 h-6",
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      fill: "none",
+                      viewBox: "0 0 24 24",
+                      stroke: "currentColor"
+                    }
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        "stroke-linecap": "round",
+                        "stroke-linejoin": "round",
+                        "stroke-width": "2",
+                        d: "M5 13l4 4L19 7"
+                      }
+                    })
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("h1", { staticClass: "mt-4 text-xl text-gray-800" }, [
+              _vm._v("\n            Upload Successfully!\n        ")
+            ]),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "mt-6 w-full bg-gray-100 rounded-xl object-cover",
+              attrs: { src: _vm.url, alt: "uploaded image" }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "mt-6 w-full flex items-center space-x-1 bg-gray-100 border border-gray-200 rounded-xl p-1"
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "text-xs text-gray-800 truncate pl-2" },
+                  [
+                    _vm._v(
+                      "\n                " + _vm._s(_vm.url) + "\n            "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "clipboard",
+                        rawName: "v-clipboard",
+                        value: function() {
+                          return _vm.url
+                        },
+                        expression: "() => url"
+                      }
+                    ],
+                    staticClass:
+                      "inline-block whitespace-nowrap bg-blue-500 hover:bg-blue-400 px-4 py-2 text-xs text-white leading-5 rounded-xl"
+                  },
+                  [_vm._v("\n                Copy link\n            ")]
+                )
+              ]
+            )
+          ]
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -32198,6 +32365,18 @@ Vue.compile = compileToFunctions;
 /******/ 	// It's empty as some runtime module handles the default behavior
 /******/ 	__webpack_require__.x = x => {}
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => module['default'] :
+/******/ 				() => module;
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
