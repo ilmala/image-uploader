@@ -1,86 +1,95 @@
 <template>
     <div class="py-12">
-        <div v-if="state==='STATE_START'" class="w-96 bg-white rounded-2xl shadow-xl flex flex-col items-center p-8">
-            <h1 class="font-semibold text-xl text-gray-800">
-                Upload Your Image
-            </h1>
+        <main>
+            <Card v-if="state==='STATE_START'" class="w-96 flex flex-col items-center">
+                <template v-slot:header>
+                    Upload Your Image
+                </template>
 
-            <p class="mt-4 text-xs text-gray-500">
-                File should be: Jpeg, Png ...
-            </p>
-
-            <div
-                class="mt-6 w-full flex flex-col items-center bg-gray-100 p-8 border border-dashed border-blue-300 rounded-2xl"
-                @drop.prevent="onDropFile"
-                @dragover.prevent
-            >
-                <UploadImage class="w-28 h-28"/>
-
-                <p class="mt-8 text-sm text-gray-400">
-                    Drag & Drop your image here
+                <p class="mt-4 text-xs text-gray-500">
+                    File should be: Jpeg, Png ...
                 </p>
-            </div>
 
-            <div class="mt-4 text-sm text-gray-500">or</div>
-
-            <label role="button">
-                <input class="hidden" ref="file" type="file" @change.prevent="onSelectFile">
-                <button @click.prevent="$refs.file.click()" class="mt-6 inline-block whitespace-nowrap bg-blue-500 hover:bg-blue-400 px-4 py-2 text-xs text-white leading-5 rounded-xl">
-                    Choose a file
-                </button>
-            </label>
-        </div>
-
-        <div v-if="state==='STATE_LOADING'" class="w-96 bg-white rounded-2xl shadow-xl p-8">
-            <h2 class="font-semibold text-xl text-gray-800">
-                Uploading
-                <span>{{ uploadPercentage }}%</span>
-            </h2>
-
-            <div class="mt-4 w-full h-2 bg-gray-200 rounded-full">
-                <div class="bg-blue-500 rounded-full h-full" :style="'width: '+uploadPercentage+'%'"></div>
-            </div>
-
-            <div class="mt-4" v-if="showError">
-                <p class="font-semibold text-sm text-red-600">
-                    An error has occurred. Please try again later.
-                </p>
-            </div>
-        </div>
-
-        <div v-if="state==='STATE_END'" class="w-96 bg-white rounded-2xl shadow-xl flex flex-col items-center p-8">
-
-            <div class="w-8 h-8 flex justify-center items-center rounded-full bg-green-600 text-white">
-                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-            </div>
-
-            <h1 class="mt-1 font-semibold text-xl text-gray-800">
-                Upload Successfully!
-            </h1>
-
-            <img class="mt-6 w-full bg-gray-100 rounded-2xl object-cover" :src="url" alt="uploaded image">
-
-            <div class="mt-6 w-full flex items-center space-x-1 bg-gray-100 border border-gray-200 rounded-2xl p-1">
-                <div class="text-xs text-gray-800 truncate pl-2">
-                    {{ url }}
-                </div>
-                <button
-                    class="inline-block whitespace-nowrap bg-blue-500 hover:bg-blue-400 px-4 py-2 text-xs text-white leading-5 rounded-xl"
-                    v-clipboard="() => url"
+                <div
+                    class="mt-6 w-full flex flex-col items-center bg-gray-100 p-8 border border-dashed border-blue-300 rounded-2xl"
+                    @drop.prevent="onDropFile"
+                    @dragover.prevent
                 >
-                    Copy link
-                </button>
-            </div>
-        </div>
+                    <UploadImage class="w-28 h-28"/>
+
+                    <p class="mt-8 text-sm text-gray-400">
+                        Drag & Drop your image here
+                    </p>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-500">or</div>
+
+                <label role="button">
+                    <input class="hidden" ref="file" type="file" @change.prevent="onSelectFile">
+                    <PrimaryButton @click.native.prevent="$refs.file.click()" class="mt-6">
+                        Choose a file
+                    </PrimaryButton>
+                </label>
+            </Card>
+
+            <Card v-if="state==='STATE_LOADING'" class="w-96">
+                <template v-slot:header>
+                    <span>Uploading</span>
+                    <span>{{ uploadPercentage }}%</span>
+                </template>
+
+                <div class="mt-4 w-full h-2 bg-gray-200 rounded-full">
+                    <div class="bg-blue-500 rounded-full h-full" :style="'width: '+uploadPercentage+'%'"></div>
+                </div>
+
+                <div class="mt-4" v-if="showError">
+                    <p class="font-semibold text-sm text-red-600">
+                        An error has occurred. Please try again later.
+                    </p>
+                </div>
+            </Card>
+
+            <Card v-if="state==='STATE_END'" class="w-96 flex flex-col items-center">
+
+                <template v-slot:header>
+                    <div class="w-8 h-8 mx-auto flex justify-center items-center rounded-full bg-green-600 text-white">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                    <span class="mt-2">Upload Successfully!</span>
+                </template>
+
+                <img class="mt-6 w-full bg-gray-100 rounded-2xl object-cover" :src="url" alt="uploaded image">
+
+                <div class="mt-6 w-full flex items-center space-x-1 bg-gray-100 border border-gray-200 rounded-2xl p-1">
+                    <div class="text-xs text-gray-800 truncate pl-2">
+                        {{ url }}
+                    </div>
+                    <PrimaryButton
+                        v-clipboard="() => url"
+                    >
+                        Copy link
+                    </PrimaryButton>
+                </div>
+            </Card>
+        </main>
+
+        <footer class="py-8 text-xs text-gray-600 text-center">
+            <p>
+                Created by <span class="text-blue-600">ilmala</span>
+                for <a class="text-blue-600" href="https://devchallenges.io/challenges/O2iGT9yBd6xZBrOcVirx">devchallenges</a>
+            </p>
+        </footer>
     </div>
 </template>
 
 <script>
 import UploadImage from "./UploadImage";
 import {STATE_START, STATE_LOADING, STATE_END, STATE_ERROR} from "../upload-state";
+import Card from "./Card";
+import PrimaryButton from "./PrimaryButton";
 
 export default {
     name: "ImageUploader",
@@ -126,7 +135,11 @@ export default {
 
         }
     },
-    components: {UploadImage},
+    components: {
+        Card,
+        UploadImage,
+        PrimaryButton
+    },
 }
 </script>
 
