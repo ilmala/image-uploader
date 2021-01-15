@@ -87,8 +87,7 @@
 
         <footer class="py-8 text-xs text-gray-600 text-center">
             <p>
-                Created by <span class="text-blue-600">ilmala</span>
-                for <a class="text-blue-600" href="https://devchallenges.io/challenges/O2iGT9yBd6xZBrOcVirx">devchallenges</a>
+                Created by <a href="https://github.com/ilmala/image-uploader" class="text-blue-600">@ilmala</a>
             </p>
         </footer>
     </div>
