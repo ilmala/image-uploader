@@ -6,18 +6,18 @@
                     Upload Your Image
                 </template>
 
-                <p class="mt-4 text-xs text-gray-500">
+                <p class="mt-4 text-xxs text-gray-400">
                     File should be: Jpeg, Png ...
                 </p>
 
                 <div
-                    class="mt-6 w-full flex flex-col items-center bg-gray-100 p-8 border border-dashed border-blue-300 rounded-2xl"
+                    class="mt-7 w-full flex flex-col items-center bg-gray-100 p-8 border border-dashed border-blue-300 rounded-2xl"
                     @drop.prevent="onDropFile"
                     @dragover.prevent
                 >
-                    <UploadImage class="w-28 h-28"/>
+                    <UploadImage />
 
-                    <p class="mt-8 text-sm text-gray-400">
+                    <p class="mt-8 text-xs text-gray-400">
                         Drag & Drop your image here
                     </p>
                 </div>
@@ -26,7 +26,7 @@
 
                 <label role="button">
                     <input class="hidden" ref="file" type="file" @change.prevent="onSelectFile">
-                    <PrimaryButton @click.native.prevent="$refs.file.click()" class="mt-6">
+                    <PrimaryButton @click.native.prevent="$refs.file.click()" class="mt-4">
                         Choose a file
                     </PrimaryButton>
                 </label>
@@ -43,8 +43,12 @@
                 </div>
 
                 <div class="mt-4" v-if="showError">
-                    <p class="font-semibold text-sm text-red-600">
+                    <p class="text-xs text-red-600">
                         An error has occurred. Please try again later.
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition duration-200"
+                           @click.prevent="restart">
+                            go back.
+                        </a>
                     </p>
                 </div>
             </Card>
@@ -52,19 +56,19 @@
             <Card v-if="state==='STATE_END'" class="w-96 flex flex-col items-center">
 
                 <template v-slot:header>
-                    <div class="w-8 h-8 mx-auto flex justify-center items-center rounded-full bg-green-600 text-white">
-                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    <div class="w-9 h-9 mx-auto flex justify-center items-center rounded-full bg-green-600 text-white">
+                        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
                     </div>
-                    <span class="mt-2">Upload Successfully!</span>
+                    <span class="mt-3">Upload Successfully!</span>
                 </template>
 
                 <img class="mt-6 w-full bg-gray-100 rounded-2xl object-cover" :src="url" alt="uploaded image">
 
-                <div class="mt-6 w-full flex items-center space-x-1 bg-gray-100 border border-gray-200 rounded-2xl p-1">
-                    <div class="text-xs text-gray-800 truncate pl-2">
+                <div class="mt-6 w-full flex justify-between items-center space-x-1 bg-gray-100 border border-gray-200 rounded-2xl p-1">
+                    <div class="text-xxs text-gray-800 truncate pl-2">
                         {{ url }}
                     </div>
                     <PrimaryButton
@@ -73,6 +77,11 @@
                         Copy link
                     </PrimaryButton>
                 </div>
+
+                <a href="#" class="mt-6 text-sm text-gray-400 hover:text-blue-500 transition duration-200"
+                @click.prevent="restart">
+                    Upload another image
+                </a>
             </Card>
         </main>
 
@@ -87,7 +96,7 @@
 
 <script>
 import UploadImage from "./UploadImage";
-import {STATE_START, STATE_LOADING, STATE_END, STATE_ERROR} from "../upload-state";
+import {STATE_START, STATE_LOADING, STATE_END} from "../upload-state";
 import Card from "./Card";
 import PrimaryButton from "./PrimaryButton";
 
@@ -103,6 +112,13 @@ export default {
         }
     },
     methods: {
+        restart() {
+            this.file = null;
+            this.uploadPercentage = 0;
+            this.url = null;
+            this.state = STATE_START;
+            this.showError = false;
+        },
         onDropFile(e) {
             let droppedFiles = e.dataTransfer.files;
             this.file = droppedFiles[0] || null;
