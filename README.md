@@ -35,20 +35,23 @@
 
 ## Overview
 
-![screenshot](https://user-images.githubusercontent.com/16707738/92399059-5716eb00-f132-11ea-8b14-bcacdc8ec97b.png)
+![screenshot](screenshot1.png)
 
-Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
+You can see the demo of my project [here](https://devchallenges-image-uploader.herokuapp.com/).
 
-- Where can I see your demo?
-- What was your experience?
-- What have you learned/improved?
-- Your wisdom? :)
+Even though the project was very simple, I learned how to:
+- Use drop action with VueJs.
+- Trigger select file from a button.
+- Handle state in a single Vue Component.
+- Handle Upload file with Laravel on Heroku.
+
+Thanks to Laravel, the upload process took just over 5 lines of code ... impressive!
 
 ### Built With
 
 <!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
 
-- [Laravel](https://laravel.com//)
+- [Laravel 8](https://laravel.com//)
 - [Vue.js](https://vuejs.org/)
 - [Tailwind](https://tailwindcss.com/)
 
